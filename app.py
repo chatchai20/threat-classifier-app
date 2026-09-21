@@ -362,20 +362,21 @@ if "history" not in st.session_state:
 # ----------------------------------------------------------------------
 # Input
 # ----------------------------------------------------------------------
+def clear_text():
+    st.session_state["user_text"] = ""
+
 text_input = st.text_area(
     "พิมพ์ข้อความที่ต้องการตรวจสอบ",
     placeholder="เช่น ข้อความจากโพสต์หรือคอมเมนต์บน X/Twitter ...",
     height=140,
+    key="user_text",
 )
 
 col1, col2 = st.columns([3, 1])
 with col1:
     analyze = st.button("🔍 วิเคราะห์ข้อความ", use_container_width=True)
 with col2:
-    clear = st.button("ล้างข้อความ", use_container_width=True)
-
-if clear:
-    st.rerun()
+    clear = st.button("ล้างข้อความ", use_container_width=True, on_click=clear_text)
 
 # ----------------------------------------------------------------------
 # Helper: find words that pushed the prediction the most (interpretability)
